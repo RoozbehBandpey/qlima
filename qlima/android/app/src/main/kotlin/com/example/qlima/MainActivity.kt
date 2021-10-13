@@ -1,4 +1,4 @@
-package com.example.qlima
+package com.emolysis.qlima
 
 import io.flutter.embedding.android.FlutterActivity
 
