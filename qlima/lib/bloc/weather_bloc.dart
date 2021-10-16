@@ -10,18 +10,21 @@ part 'weather_state.dart';
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository weatherRepository;
   WeatherBloc(this.weatherRepository) : super(WeatherInitial()) {
-    on<WeatherEvent>((event, emit) {
+    on<WeatherEvent>((event, emit) async {
       emit(WeatherLoading());
 
       if (event is GetWeather) {
         try {
-          final weather = weatherRepository.fetchWeather(event.cityName).then((weather) => emit(WeatherLoaded(weather)));
+          final weather = await weatherRepository.fetchWeather(event.cityName);
+          emit(WeatherLoaded(weather));
         } on NetworkError {
           emit(WeatherError("Couldn't feetch weather! Is the device online?"));
         }
       } else if (event is GetDetailedWeather) {
         try {
-          final weather = weatherRepository.fetchDetailedWeather(event.cityName).then((weather) => emit(WeatherLoaded(weather)));
+          final weather =
+              await weatherRepository.fetchDetailedWeather(event.cityName);
+          emit(WeatherLoaded(weather));
         } on NetworkError {
           emit(WeatherError("Couldn't feetch weather! Is the device online?"));
         }
