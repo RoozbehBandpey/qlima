@@ -22,7 +22,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
+          channel: 'master' # or: 'beta', 'dev' or 'master'
       - name: Get dependencies
         working-directory: ./qlima
         run: flutter pub get
